@@ -12,7 +12,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import reducers from './reducers';
 
 import Layout from './containers/layout';
-import Feed from './containers/feed'
+import FeedList from './containers/feedList'
 
 const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk)
@@ -26,7 +26,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <Route component={Layout}>
-                <Route exact path='/' component={Feed} />
+                <Route exact path='/' component={FeedList} />
             </Route>
         </Router>
     </Provider>,

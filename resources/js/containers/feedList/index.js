@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {fetchFeed} from '../../actions'
 
-class Feed extends Component
+import FeedItem from './feedItem'
+
+class FeedList extends Component
 {
     componentDidMount(){
         this.props.fetchFeed()
     }
     render(){
         return(
-            <div>
-                Feed
+            <div className="row">
+                <FeedItem/>
+                <FeedItem/>
             </div>
         )
     }
@@ -20,4 +23,4 @@ const mapDispatchToProps = {
     fetchFeed
 }
 
-export default connect(null, mapDispatchToProps)(Feed)
+export default connect(null, mapDispatchToProps)(FeedList)
