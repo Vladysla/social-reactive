@@ -13,6 +13,7 @@ import reducers from './reducers';
 
 import Layout from './containers/layout';
 import FeedList from './containers/feedList'
+import Join from './containers/joinPage'
 
 const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk)
@@ -22,13 +23,20 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Route component={Layout}>
-                <Route exact path='/' component={FeedList} />
-            </Route>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
-)
+if(document.getElementById('root')){
+    ReactDOM.render(
+        <Provider store={store}>
+            <Router history={history}>
+                <Route component={Layout}>
+                    <Route exact path='/' component={FeedList} />
+                </Route>
+            </Router>
+        </Provider>,
+        document.getElementById('root')
+    )
+} else if (document.getElementById('join')){
+    ReactDOM.render(
+        <Join/>,
+        document.getElementById('join')
+    )
+}

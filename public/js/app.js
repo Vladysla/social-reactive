@@ -40112,6 +40112,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__reducers__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__containers_layout__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__containers_feedList__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__containers_joinPage__ = __webpack_require__(164);
+
 
 
 
@@ -40132,19 +40134,23 @@ var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["createStore"])(__WEBPACK
 
 var history = Object(__WEBPACK_IMPORTED_MODULE_7_react_router_redux__["syncHistoryWithStore"])(__WEBPACK_IMPORTED_MODULE_6_react_router__["c" /* browserHistory */], store);
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_5_react_redux__["a" /* Provider */],
-    { store: store },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_6_react_router__["b" /* Router */],
-        { history: history },
+if (document.getElementById('root')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5_react_redux__["a" /* Provider */],
+        { store: store },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_6_react_router__["a" /* Route */],
-            { component: __WEBPACK_IMPORTED_MODULE_9__containers_layout__["a" /* default */] },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_router__["a" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_10__containers_feedList__["a" /* default */] })
+            __WEBPACK_IMPORTED_MODULE_6_react_router__["b" /* Router */],
+            { history: history },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6_react_router__["a" /* Route */],
+                { component: __WEBPACK_IMPORTED_MODULE_9__containers_layout__["a" /* default */] },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_router__["a" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_10__containers_feedList__["a" /* default */] })
+            )
         )
-    )
-), document.getElementById('root'));
+    ), document.getElementById('root'));
+} else if (document.getElementById('join')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__containers_joinPage__["a" /* default */], null), document.getElementById('join'));
+}
 
 /***/ }),
 /* 88 */
@@ -68956,6 +68962,276 @@ var FeedItem = function FeedItem() {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (FeedItem);
+
+/***/ }),
+/* 164 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_index__ = __webpack_require__(165);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Join = function (_Component) {
+    _inherits(Join, _Component);
+
+    function Join() {
+        _classCallCheck(this, Join);
+
+        var _this = _possibleConstructorReturn(this, (Join.__proto__ || Object.getPrototypeOf(Join)).call(this));
+
+        _this.state = {
+            register: false
+        };
+        _this.toggleRegister = _this.toggleRegister.bind(_this);
+        return _this;
+    }
+
+    _createClass(Join, [{
+        key: "renderLogin",
+        value: function renderLogin() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "h5",
+                    { className: "card-title text-center" },
+                    "Sign In"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "form",
+                    { className: "form-signin" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputEmail" },
+                            "Email address"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputPassword" },
+                            "Password"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "custom-control custom-checkbox mb-3" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", className: "custom-control-input", id: "customCheck1" }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { className: "custom-control-label", htmlFor: "customCheck1" },
+                            "Remember password"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "button",
+                        { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
+                        "Sign in"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { onClick: this.toggleRegister, className: "d-block text-center mt-2 small toggle-sign" },
+                        "Register"
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderRegister",
+        value: function renderRegister() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "h5",
+                    { className: "card-title text-center" },
+                    "Register"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "form",
+                    { className: "form-signin" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", id: "inputUserame", className: "form-control", placeholder: "Username", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputUserame" },
+                            "Username"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputEmail" },
+                            "Email address"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputPassword" },
+                            "Password"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "form-label-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputConfirmPassword", className: "form-control", placeholder: "Password", required: true }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "label",
+                            { htmlFor: "inputConfirmPassword" },
+                            "Confirm password"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "button",
+                        { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
+                        "Register"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { onClick: this.toggleRegister, className: "d-block text-center mt-2 small toggle-sign" },
+                        "Sign In"
+                    )
+                )
+            );
+        }
+    }, {
+        key: "toggleRegister",
+        value: function toggleRegister() {
+            this.setState(function (prevState) {
+                return {
+                    register: !prevState.register
+                };
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "row" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "col-lg-10 col-xl-9 mx-auto" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "div",
+                            { className: "card card-signin flex-row my-5" },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "card-img-left d-none d-md-flex" }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "div",
+                                { className: "card-body" },
+                                !this.state.register ? this.renderLogin() : this.renderRegister()
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Join;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Join);
+
+/***/ }),
+/* 165 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var Login = function Login(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "h5",
+            { className: "card-title text-center" },
+            "Sign In"
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "form",
+            { className: "form-signin" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "form-label-group" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { htmlFor: "inputEmail" },
+                    "Email address"
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "form-label-group" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { htmlFor: "inputPassword" },
+                    "Password"
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "custom-control custom-checkbox mb-3" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", className: "custom-control-input", id: "customCheck1" }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "custom-control-label", htmlFor: "customCheck1" },
+                    "Remember password"
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "button",
+                { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
+                "Sign in"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "span",
+                { onClick: function onClick() {
+                        return props.onToggle;
+                    }, className: "d-block text-center mt-2 small toggle-sign" },
+                "Register"
+            )
+        )
+    );
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = (Login);
 
 /***/ })
 /******/ ]);

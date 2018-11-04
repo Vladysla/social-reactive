@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/join', function () {
+    return view('join');
+})->name('join');
+
+Route::get( '/{any}', function () {
     return view('welcome');
-});
+})->where('any', '.*')->middleware('auth');
