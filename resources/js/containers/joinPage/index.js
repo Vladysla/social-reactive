@@ -5,22 +5,49 @@ class Join extends Component {
     constructor(){
         super()
         this.state = {
-            register: false
+            showRegister: false,
+            username: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+            errors: {}
         }
         this.toggleRegister = this.toggleRegister.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this)
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     }
     renderLogin(){
+        const {email, password} = this.state
         return(
             <Fragment>
                 <h5 className="card-title text-center">Sign In</h5>
-                <form className="form-signin">
+                <form onSubmit={this.handleLoginSubmit} className="form-signin">
                     <div className="form-label-group">
-                        <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            value={email}
+                            name="email"
+                            type="text"
+                            id="inputEmail"
+                            className={(this.state.errors.email) ? 'form-control is-invalid': 'form-control'}
+                            placeholder="Email address"
+                        />
                         <label htmlFor="inputEmail">Email address</label>
+                        <div className="invalid-feedback">{` • ${this.state.errors.email}`}</div>
                     </div>
                     <div className="form-label-group">
-                        <input type="password" id="inputPassword" className="form-control" placeholder="Password" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            value={password}
+                            name="password"
+                            type="password"
+                            id="inputPassword"
+                            className={(this.state.errors.password) ? 'form-control is-invalid': 'form-control'}
+                            placeholder="Password"
+                        />
                         <label htmlFor="inputPassword">Password</label>
+                        <div className="invalid-feedback">{` • ${this.state.errors.password}`}</div>
                     </div>
                     <div className="custom-control custom-checkbox mb-3">
                         <input type="checkbox" className="custom-control-input" id="customCheck1" />
@@ -34,25 +61,60 @@ class Join extends Component {
     }
 
     renderRegister(){
+        const {username, email, password, password_confirmation} = this.state
         return (
             <Fragment>
                 <h5 className="card-title text-center">Register</h5>
-                <form className="form-signin">
+                <form onSubmit={this.handleRegisterSubmit} className="form-signin" method="post">
                     <div className="form-label-group">
-                        <input type="text" id="inputUserame" className="form-control" placeholder="Username" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            name="username"
+                            value={username}
+                            type="text" id="inputUserame"
+                            className={(this.state.errors.username) ? 'form-control is-invalid': 'form-control'}
+                            placeholder="Username"
+                        />
                         <label htmlFor="inputUserame">Username</label>
+                        <div className="invalid-feedback">{` • ${this.state.errors.username}`}</div>
                     </div>
                     <div className="form-label-group">
-                        <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            name="email"
+                            value={email}
+                            type="text"
+                            id="inputEmail"
+                            className={(this.state.errors.email) ? 'form-control is-invalid': 'form-control'}
+                            placeholder="Email address"
+                        />
                         <label htmlFor="inputEmail">Email address</label>
+                        <div className="invalid-feedback">{` • ${this.state.errors.email}`}</div>
                     </div>
                     <hr/>
                     <div className="form-label-group">
-                        <input type="password" id="inputPassword" className="form-control" placeholder="Password" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            name="password"
+                            value={password}
+                            type="password"
+                            id="inputPassword"
+                            className={(this.state.errors.password) ? 'form-control is-invalid': 'form-control'}
+                            placeholder="Password"
+                        />
                         <label htmlFor="inputPassword">Password</label>
+                        <div className="invalid-feedback">{` • ${this.state.errors.password}`}</div>
                     </div>
                     <div className="form-label-group">
-                        <input type="password" id="inputConfirmPassword" className="form-control" placeholder="Password" required />
+                        <input
+                            onChange={this.handleInputChange}
+                            name="password_confirmation"
+                            value={password_confirmation}
+                            type="password"
+                            id="inputConfirmPassword"
+                            className="form-control"
+                            placeholder="Password"
+                        />
                         <label htmlFor="inputConfirmPassword">Confirm password</label>
                     </div>
                     <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
@@ -64,8 +126,60 @@ class Join extends Component {
 
     toggleRegister(){
         this.setState((prevState) => ({
-            register: !prevState.register
+            showRegister: !prevState.showRegister
         }))
+    }
+
+    handleInputChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleRegisterSubmit(e) {
+        const {username, email, password, password_confirmation} = this.state
+        e.preventDefault()
+        axios.post('/api/register', {
+            username,
+            email,
+            password,
+            password_confirmation
+        })
+        .then(response => {
+            if (response.data.errors){
+                this.setState({
+                    errors: response.data.errors
+                })
+            } else {
+                this.setState({
+                    errors: {}
+                })
+                console.log(response.data)
+            }
+        })
+    }
+
+    handleLoginSubmit(e) {
+        e.preventDefault()
+        const {email, password} = this.state
+        axios.post('/api/login', {
+            email,
+            password
+        })
+        .then(response => {
+            if (response.data.errors){
+                this.setState({
+                    errors: response.data.errors
+                })
+            } else {
+                this.setState({
+                    errors: {}
+                })
+                console.log(response.data)
+            }
+        }).catch(err => {
+
+        })
     }
 
     render(){
@@ -77,7 +191,7 @@ class Join extends Component {
                             <div className="card-img-left d-none d-md-flex">
                             </div>
                             <div className="card-body">
-                                {(!this.state.register) ? this.renderLogin() : this.renderRegister()}
+                                {(!this.state.showRegister) ? this.renderLogin() : this.renderRegister()}
                             </div>
                         </div>
                     </div>

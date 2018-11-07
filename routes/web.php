@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/join', function () {
-    return view('join');
-})->name('join');
+Route::get('/join', 'AuthController@index')->name('login');
 
-Route::get( '/{any}', function () {
-    return view('welcome');
-})->where('any', '.*')->middleware('auth');
+Route::get( '/{any}', 'HomeController@index')
+    ->where('any', '.*');
+
+
+

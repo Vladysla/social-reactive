@@ -68970,15 +68970,15 @@ var FeedItem = function FeedItem() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_index__ = __webpack_require__(165);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -68991,166 +68991,317 @@ var Join = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Join.__proto__ || Object.getPrototypeOf(Join)).call(this));
 
         _this.state = {
-            register: false
+            showRegister: false,
+            username: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+            errors: {}
         };
         _this.toggleRegister = _this.toggleRegister.bind(_this);
+        _this.handleInputChange = _this.handleInputChange.bind(_this);
+        _this.handleRegisterSubmit = _this.handleRegisterSubmit.bind(_this);
+        _this.handleLoginSubmit = _this.handleLoginSubmit.bind(_this);
         return _this;
     }
 
     _createClass(Join, [{
-        key: "renderLogin",
+        key: 'renderLogin',
         value: function renderLogin() {
+            var _state = this.state,
+                email = _state.email,
+                password = _state.password;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "h5",
-                    { className: "card-title text-center" },
-                    "Sign In"
+                    'h5',
+                    { className: 'card-title text-center' },
+                    'Sign In'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "form",
-                    { className: "form-signin" },
+                    'form',
+                    { onSubmit: this.handleLoginSubmit, className: 'form-signin' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            value: email,
+                            name: 'email',
+                            type: 'text',
+                            id: 'inputEmail',
+                            className: this.state.errors.email ? 'form-control is-invalid' : 'form-control',
+                            placeholder: 'Email address'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputEmail" },
-                            "Email address"
+                            'label',
+                            { htmlFor: 'inputEmail' },
+                            'Email address'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            ' \u2022 ' + this.state.errors.email
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            value: password,
+                            name: 'password',
+                            type: 'password',
+                            id: 'inputPassword',
+                            className: this.state.errors.password ? 'form-control is-invalid' : 'form-control',
+                            placeholder: 'Password'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputPassword" },
-                            "Password"
+                            'label',
+                            { htmlFor: 'inputPassword' },
+                            'Password'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            ' \u2022 ' + this.state.errors.password
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "custom-control custom-checkbox mb-3" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", className: "custom-control-input", id: "customCheck1" }),
+                        'div',
+                        { className: 'custom-control custom-checkbox mb-3' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'custom-control-input', id: 'customCheck1' }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { className: "custom-control-label", htmlFor: "customCheck1" },
-                            "Remember password"
+                            'label',
+                            { className: 'custom-control-label', htmlFor: 'customCheck1' },
+                            'Remember password'
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "button",
-                        { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
-                        "Sign in"
+                        'button',
+                        { className: 'btn btn-lg btn-primary btn-block text-uppercase', type: 'submit' },
+                        'Sign in'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "span",
-                        { onClick: this.toggleRegister, className: "d-block text-center mt-2 small toggle-sign" },
-                        "Register"
+                        'span',
+                        { onClick: this.toggleRegister, className: 'd-block text-center mt-2 small toggle-sign' },
+                        'Register'
                     )
                 )
             );
         }
     }, {
-        key: "renderRegister",
+        key: 'renderRegister',
         value: function renderRegister() {
+            var _state2 = this.state,
+                username = _state2.username,
+                email = _state2.email,
+                password = _state2.password,
+                password_confirmation = _state2.password_confirmation;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "h5",
-                    { className: "card-title text-center" },
-                    "Register"
+                    'h5',
+                    { className: 'card-title text-center' },
+                    'Register'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "form",
-                    { className: "form-signin" },
+                    'form',
+                    { onSubmit: this.handleRegisterSubmit, className: 'form-signin', method: 'post' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", id: "inputUserame", className: "form-control", placeholder: "Username", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            name: 'username',
+                            value: username,
+                            type: 'text', id: 'inputUserame',
+                            className: this.state.errors.username ? 'form-control is-invalid' : 'form-control',
+                            placeholder: 'Username'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputUserame" },
-                            "Username"
+                            'label',
+                            { htmlFor: 'inputUserame' },
+                            'Username'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            ' \u2022 ' + this.state.errors.username
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            name: 'email',
+                            value: email,
+                            type: 'text',
+                            id: 'inputEmail',
+                            className: this.state.errors.email ? 'form-control is-invalid' : 'form-control',
+                            placeholder: 'Email address'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputEmail" },
-                            "Email address"
+                            'label',
+                            { htmlFor: 'inputEmail' },
+                            'Email address'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            ' \u2022 ' + this.state.errors.email
                         )
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            name: 'password',
+                            value: password,
+                            type: 'password',
+                            id: 'inputPassword',
+                            className: this.state.errors.password ? 'form-control is-invalid' : 'form-control',
+                            placeholder: 'Password'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputPassword" },
-                            "Password"
+                            'label',
+                            { htmlFor: 'inputPassword' },
+                            'Password'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'invalid-feedback' },
+                            ' \u2022 ' + this.state.errors.password
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "form-label-group" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputConfirmPassword", className: "form-control", placeholder: "Password", required: true }),
+                        'div',
+                        { className: 'form-label-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            onChange: this.handleInputChange,
+                            name: 'password_confirmation',
+                            value: password_confirmation,
+                            type: 'password',
+                            id: 'inputConfirmPassword',
+                            className: 'form-control',
+                            placeholder: 'Password'
+                        }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "label",
-                            { htmlFor: "inputConfirmPassword" },
-                            "Confirm password"
+                            'label',
+                            { htmlFor: 'inputConfirmPassword' },
+                            'Confirm password'
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "button",
-                        { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
-                        "Register"
+                        'button',
+                        { className: 'btn btn-lg btn-primary btn-block text-uppercase', type: 'submit' },
+                        'Register'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "span",
-                        { onClick: this.toggleRegister, className: "d-block text-center mt-2 small toggle-sign" },
-                        "Sign In"
+                        'span',
+                        { onClick: this.toggleRegister, className: 'd-block text-center mt-2 small toggle-sign' },
+                        'Sign In'
                     )
                 )
             );
         }
     }, {
-        key: "toggleRegister",
+        key: 'toggleRegister',
         value: function toggleRegister() {
             this.setState(function (prevState) {
                 return {
-                    register: !prevState.register
+                    showRegister: !prevState.showRegister
                 };
             });
         }
     }, {
-        key: "render",
+        key: 'handleInputChange',
+        value: function handleInputChange(e) {
+            this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }
+    }, {
+        key: 'handleRegisterSubmit',
+        value: function handleRegisterSubmit(e) {
+            var _this2 = this;
+
+            var _state3 = this.state,
+                username = _state3.username,
+                email = _state3.email,
+                password = _state3.password,
+                password_confirmation = _state3.password_confirmation;
+
+            e.preventDefault();
+            axios.post('/api/register', {
+                username: username,
+                email: email,
+                password: password,
+                password_confirmation: password_confirmation
+            }).then(function (response) {
+                if (response.data.errors) {
+                    _this2.setState({
+                        errors: response.data.errors
+                    });
+                } else {
+                    _this2.setState({
+                        errors: {}
+                    });
+                    console.log(response.data);
+                }
+            });
+        }
+    }, {
+        key: 'handleLoginSubmit',
+        value: function handleLoginSubmit(e) {
+            var _this3 = this;
+
+            e.preventDefault();
+            var _state4 = this.state,
+                email = _state4.email,
+                password = _state4.password;
+
+            axios.post('/api/login', {
+                email: email,
+                password: password
+            }).then(function (response) {
+                if (response.data.errors) {
+                    _this3.setState({
+                        errors: response.data.errors
+                    });
+                } else {
+                    _this3.setState({
+                        errors: {}
+                    });
+                    console.log(response.data);
+                }
+            });
+        }
+    }, {
+        key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "container" },
+                'div',
+                { className: 'container' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "div",
-                        { className: "col-lg-10 col-xl-9 mx-auto" },
+                        'div',
+                        { className: 'col-lg-10 col-xl-9 mx-auto' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            "div",
-                            { className: "card card-signin flex-row my-5" },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "card-img-left d-none d-md-flex" }),
+                            'div',
+                            { className: 'card card-signin flex-row my-5' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'card-img-left d-none d-md-flex' }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                "div",
-                                { className: "card-body" },
-                                !this.state.register ? this.renderLogin() : this.renderRegister()
+                                'div',
+                                { className: 'card-body' },
+                                !this.state.showRegister ? this.renderLogin() : this.renderRegister()
                             )
                         )
                     )
@@ -69163,75 +69314,6 @@ var Join = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Join);
-
-/***/ }),
-/* 165 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-
-var Login = function Login(props) {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "h5",
-            { className: "card-title text-center" },
-            "Sign In"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "form",
-            { className: "form-signin" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "form-label-group" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { htmlFor: "inputEmail" },
-                    "Email address"
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "form-label-group" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { htmlFor: "inputPassword" },
-                    "Password"
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "custom-control custom-checkbox mb-3" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", className: "custom-control-input", id: "customCheck1" }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { className: "custom-control-label", htmlFor: "customCheck1" },
-                    "Remember password"
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "button",
-                { className: "btn btn-lg btn-primary btn-block text-uppercase", type: "submit" },
-                "Sign in"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "span",
-                { onClick: function onClick() {
-                        return props.onToggle;
-                    }, className: "d-block text-center mt-2 small toggle-sign" },
-                "Register"
-            )
-        )
-    );
-};
-
-/* unused harmony default export */ var _unused_webpack_default_export = (Login);
 
 /***/ })
 /******/ ]);

@@ -137,6 +137,7 @@
     </style>
 </head>
 <body>
+    {{var_dump(Auth::check())}}
     <div id="join"></div>
     <script src="js/app.js"></script>
 </body>
