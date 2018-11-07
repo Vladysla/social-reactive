@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/join', 'AuthController@index')->name('login');
+Route::get('/join', function() {
+    return view('join');
+})->name('login')->middleware('guest');
 
 Route::get( '/{any}', 'HomeController@index')
     ->where('any', '.*');

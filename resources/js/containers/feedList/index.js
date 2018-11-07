@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {fetchFeed} from '../../actions'
+import {
+    fetchFeed,
+    fetchUser
+} from '../../actions'
 
 import FeedItem from './feedItem'
 
@@ -8,6 +11,7 @@ class FeedList extends Component
 {
     componentDidMount(){
         this.props.fetchFeed()
+        this.props.fetchUser()
     }
     render(){
         return(
@@ -20,6 +24,7 @@ class FeedList extends Component
 }
 
 const mapDispatchToProps = {
+    fetchUser,
     fetchFeed
 }
 

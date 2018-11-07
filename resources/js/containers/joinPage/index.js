@@ -50,7 +50,7 @@ class Join extends Component {
                         <div className="invalid-feedback">{` • ${this.state.errors.password}`}</div>
                     </div>
                     <div className="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <input type="checkbox" name="remember" className="custom-control-input" id="customCheck1" />
                         <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
                     </div>
                     <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
@@ -154,8 +154,15 @@ class Join extends Component {
                 this.setState({
                     errors: {}
                 })
-                console.log(response.data)
+                window.location = '/'
             }
+        })
+        .catch(err => {
+            this.setState({
+                errors: {
+                    email: 'We doesn\'t have user with that email and password'
+                }
+            })
         })
     }
 
@@ -175,10 +182,14 @@ class Join extends Component {
                 this.setState({
                     errors: {}
                 })
-                console.log(response.data)
+                window.location = '/'
             }
         }).catch(err => {
-
+            this.setState({
+                errors: {
+                    email: 'We doesn\'t have user with that email and password'
+                }
+            })
         })
     }
 
