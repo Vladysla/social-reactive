@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import Search from './searchForm/index'
 
-class Header extends  Component{
+class Header extends  Component {
     constructor(){
         super()
         this.state = {
@@ -34,10 +34,8 @@ class Header extends  Component{
                 </div>
                 <ul role="menu">
                     <li className="DashUserDropdown-userInfo" role="presentation">
-                        <a href={`/${slug}`} className="DashUserDropdown-userInfoLink js-nav" role="menuitem">
                             <b className="fullname">{username}</b><span className="UserBadges"></span>
                             <p className="name"><span className="username u-dir u-textTruncate">@<b>{slug}</b></span></p>
-                        </a>
                     </li>
                     <li className="dropdown-divider" role="presentation">
 
@@ -121,12 +119,11 @@ class Header extends  Component{
                                             {this.renderDropDown()}
                                         </li>
                                         <li role="complementary" aria-labelledby="global-new-tweet-button" className="topbar-tweet-btn">
-                                            <button id="global-new-tweet-button" className="js-global-new-tweet js-tooltip EdgeButton EdgeButton--primary btn">
+                                            <button  data-toggle="modal" data-target="#writePost" id="global-new-tweet-button" className="EdgeButton EdgeButton--primary btn">
                                                 <span className="text">Твитнуть</span>
                                             </button>
                                         </li>
                                     </ul>
-                                    <div className="js-last-tabstop"></div>
                                 </div>
                             </div>
                         </div>
