@@ -29,6 +29,7 @@ if(document.getElementById('root')){
             <Router history={history}>
                 <Route component={Layout}>
                     <Route exact path='/' component={FeedList} />
+                    <Route path='/:user' component={FeedList} />
                 </Route>
             </Router>
         </Provider>,

@@ -21,6 +21,11 @@ class User extends Authenticatable
         'username', 'email'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -1,8 +1,16 @@
 import React from 'react'
 
-const FeedItem = () => {
+import Editor from 'draft-js-plugins-editor';
+import {EditorState} from 'draft-js';
+import {stateFromHTML} from 'draft-js-import-html';
+
+
+const FeedItem = (props) => {
+    const {user, body, created_at } = props.post
+    let contentState = stateFromHTML(body);
+    const editorState = EditorState.createWithContent(contentState);
     return (
-        <div className="card gedf-card align-self-center">
+        <div className="card gedf-card align-self-center col-11">
             <div className="card-header">
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex justify-content-between align-items-center">
@@ -10,8 +18,8 @@ const FeedItem = () => {
                             <img className="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""/>
                         </div>
                         <div className="ml-2">
-                            <div className="h5 m-0">@LeeCross</div>
-                            <div className="h7 text-muted">Miracles Lee Cross</div>
+                            <div className="h5 m-0">@{user.slug}</div>
+                            <div className="h7 text-muted">{user.username}</div>
                         </div>
                     </div>
                     <div>
@@ -30,15 +38,10 @@ const FeedItem = () => {
                 </div>
             </div>
             <div className="card-body">
-                <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>10 min ago</div>
-                <a className="card-link" href="#">
-                    <h5 className="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-                </a>
-
-                <p className="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                    sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                </p>
+                <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i>{created_at}</div>
+                <div className="card-content">
+                    <Editor editorState={editorState} onChange={props.change} readOnly />
+                </div>
             </div>
             <div className="card-footer">
                 <a href="#" className="card-link"><i className="fa fa-gittip"></i> Like</a>

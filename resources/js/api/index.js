@@ -1,12 +1,19 @@
 import axios from 'axios'
 
+export const baseUrl = 'http://social.loc'
+
 
 export const fetchUser = async () => {
-    const { data } = await axios.get('/api/getUserInfo')
+    const { data } = await axios.get(`${baseUrl}/api/getUserInfo`)
     return data.user
 }
 
-export const fetchFeed = async () => {
-    const { data } = await axios.get('http://www.mocky.io/v2/5bd58ac9310000600041db0b')
-    return data.posts
+export const fetchFeed = async (user) => {
+    const { data } = await axios.get(`${baseUrl}/api/getPosts/${user}`)
+    return data
+}
+
+export const loadMoreFeed = async (url) => {
+    const { data } = await axios.get(url)
+    return data
 }
