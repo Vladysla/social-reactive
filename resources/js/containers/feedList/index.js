@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
     fetchFeed,
     fetchUser,
+    fetchProfile,
     loadMoreFeed
 } from '../../actions'
 
@@ -23,8 +24,10 @@ class FeedList extends Component
     componentDidMount(){
         if (this.props.params.user){
             this.props.fetchFeed(this.props.params.user)
+            this.props.fetchProfile(this.props.params.user)
         } else {
             this.props.fetchFeed()
+            this.props.fetchProfile()
         }
         this.props.fetchUser()
     }
@@ -75,6 +78,7 @@ class FeedList extends Component
 const mapDispatchToProps = {
     fetchUser,
     fetchFeed,
+    fetchProfile,
     loadMoreFeed
 }
 

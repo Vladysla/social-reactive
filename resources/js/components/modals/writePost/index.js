@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+import { fetchFeed } from '../../../actions'
+
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
@@ -43,6 +46,7 @@ class WritePost extends Component{
         });
     };
     handleSubmit(e){
+        const { fetchFeed } = this.props
         e.preventDefault()
         axios.post('/api/createPost', {
             title: '123',
@@ -57,6 +61,7 @@ class WritePost extends Component{
                 this.setState({
                     errors: ''
                 })
+                fetchFeed()
                 $('#writePost').modal('hide')
             }
         })
@@ -107,4 +112,8 @@ class WritePost extends Component{
     }
 }
 
-export default WritePost
+const mapDispatchToProps = {
+    fetchFeed
+}
+
+export default connect(null, mapDispatchToProps)(WritePost)

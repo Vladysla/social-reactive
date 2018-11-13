@@ -22,12 +22,11 @@ body{
     line-height: 20px;
     overflow-y: scroll;
 }
-span {
+.card-content {
     font-family: 'EmojiOne Color', sans-serif;
 }
 ol, ul {
     margin: 0;
-    /*list-style: none;*/
     padding: 0;
 }
 blockquote, dl, dd, h1, h2, h3, h4, h5, h6, figure, p, pre {
@@ -193,11 +192,11 @@ button {
     line-height: 1;
     padding: 0 14px 0 4px;
 }
-.global-actions > li.active {
+.global-actions > li > a.active {
     border-bottom: 2px solid #1c94e0;
     color: #1c94e0;
 }
-.global-actions > li:hover {
+.global-actions > li > a:hover {
     border-bottom: 2px solid #1c94e0;
     color: #1c94e0;
     transition: .1s all;

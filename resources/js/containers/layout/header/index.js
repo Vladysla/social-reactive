@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
 import Search from './searchForm/index'
@@ -86,11 +86,11 @@ class Header extends  Component {
                                 <div className="col-md-5">
                                     <div className="navigation">
                                         <ul className="global-actions">
-                                            <li className="active">
-                                                <a href="#">
+                                            <li>
+                                                <Link activeClassName="active" to="/">
                                                     <i className="fas fa-home icon"></i>
                                                     <span className="text">Home</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
                                                 <a href="#">

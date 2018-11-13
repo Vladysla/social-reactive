@@ -32,13 +32,20 @@ class HomeController extends Controller
 
     public function getUserInfo()
     {
-        if (Auth::check()){
+        return response()->json([
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function getProfileInfo(User $user)
+    {
+        if ($user->exists){
             return response()->json([
-                'user' => Auth::user()
+                'profile' => $user
             ]);
-        }else{
+        } else {
             return response()->json([
-                'error' => 'Not authorized'
+                'error' => 'User not found'
             ]);
         }
     }
@@ -70,7 +77,7 @@ class HomeController extends Controller
             $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
             return response()->json($posts);
         } else {
-            $posts = Auth::user()->posts()->with('user')->orderBy('created_at', 'desc')->paginate(1);
+            $posts = Auth::user()->posts()->with('user')->orderBy('created_at', 'desc')->paginate(3);
             return response()->json($posts);
         }
     }

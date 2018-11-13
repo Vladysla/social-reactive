@@ -2,6 +2,7 @@ import * as TYPE from '../actionTypes'
 import {
     fetchFeed as fetchFeedApi,
     fetchUser as fetchUserApi,
+    fetchProfile as fetchProfileApi,
     loadMoreFeed as loadMoreFeedApi,
 } from '../api'
 
@@ -17,6 +18,25 @@ export const fetchUser = () => async dispatch => {
     } catch (err) {
         dispatch({
             type: TYPE.FETCH_USER_FAILURE,
+            payload: err,
+            error: true
+        })
+    }
+}
+
+export const fetchProfile = (user) => async dispatch => {
+    dispatch({ type: TYPE.FETCH_PROFILE_START})
+
+    try {
+        const profile = await fetchProfileApi(user)
+        console.log(profile)
+        dispatch({
+            type: TYPE.FETCH_PROFILE_SUCCESS,
+            payload: profile
+        })
+    } catch (err) {
+        dispatch({
+            type: TYPE.FETCH_PROFILE_FAILURE,
             payload: err,
             error: true
         })

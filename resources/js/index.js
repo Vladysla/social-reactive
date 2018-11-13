@@ -14,6 +14,7 @@ import reducers from './reducers';
 import Layout from './containers/layout';
 import FeedList from './containers/feedList'
 import Join from './containers/joinPage'
+import Page404 from './containers/page404'
 
 const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk)
@@ -30,6 +31,7 @@ if(document.getElementById('root')){
                 <Route component={Layout}>
                     <Route exact path='/' component={FeedList} />
                     <Route path='/:user' component={FeedList} />
+                    <Route path='*' exact component={Page404} />
                 </Route>
             </Router>
         </Provider>,

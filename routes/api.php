@@ -7,6 +7,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // Get User Info
 Route::get('/getUserInfo', 'HomeController@getUserInfo');
+Route::get('/getProfileInfo/{user}', 'HomeController@getProfileInfo');
 
 // Store post
 Route::post('/createPost', 'HomeController@storePost');
