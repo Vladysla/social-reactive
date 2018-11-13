@@ -13,6 +13,7 @@ import reducers from './reducers';
 
 import Layout from './containers/layout';
 import FeedList from './containers/feedList'
+import ProfileFeed from './containers/profileFeed'
 import Join from './containers/joinPage'
 import Page404 from './containers/page404'
 
@@ -30,9 +31,9 @@ if(document.getElementById('root')){
             <Router history={history}>
                 <Route component={Layout}>
                     <Route exact path='/' component={FeedList} />
-                    <Route path='/:user' component={FeedList} />
-                    <Route path='*' exact component={Page404} />
+                    <Route path='/:user' component={ProfileFeed} />
                 </Route>
+                <Route path='*' exact component={Page404} />
             </Router>
         </Provider>,
         document.getElementById('root')

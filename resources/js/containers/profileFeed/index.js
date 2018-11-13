@@ -13,7 +13,7 @@ import FeedItem from './feedItem'
 import Loader from '../../components/loader'
 
 
-class FeedList extends Component
+class ProfileFeed extends Component
 {
     constructor(){
         super()
@@ -21,8 +21,12 @@ class FeedList extends Component
     }
 
     componentDidMount(){
-        this.props.fetchFeed()
-        this.props.fetchProfile()
+        if (this.props.params.user){
+            this.props.fetchFeed(this.props.params.user)
+            this.props.fetchProfile(this.props.params.user)
+        } else {
+            window.location.href = '/error/404'
+        }
         this.props.fetchUser()
     }
 
@@ -34,15 +38,15 @@ class FeedList extends Component
         if (loading){
             return <Loader/>
         } else {
-             if (total > 0){
-                 return (
-                     posts.map(post => (
-                         <FeedItem key={post.id} post={post} change={this.onChangeMock}/>
-                     ))
-                 )
-             } else {
-                 return 'Dont'
-             }
+            if (total > 0){
+                return (
+                    posts.map(post => (
+                        <FeedItem key={post.id} post={post} change={this.onChangeMock}/>
+                    ))
+                )
+            } else {
+                return 'Dont'
+            }
         }
     }
 
@@ -84,4 +88,4 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedList)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileFeed)

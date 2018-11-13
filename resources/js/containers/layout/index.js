@@ -3,8 +3,10 @@ import React from 'react'
 import Header from './header'
 import Sidebar from './sidebar'
 
-const Layout = ({ children }) =>{
-    return(
+import WritePost from '../../components/modals/writePost'
+
+const Layout = ({ children }) => {
+    return (
         <div>
             <Header/>
             <main className="page-container">
@@ -13,6 +15,7 @@ const Layout = ({ children }) =>{
                     <div className="main-content">
                         {children}
                     </div>
+                    <WritePost />
                 </div>
             </main>
         </div>

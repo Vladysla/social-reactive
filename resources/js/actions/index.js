@@ -13,7 +13,10 @@ export const fetchUser = () => async dispatch => {
         const user = await fetchUserApi()
         dispatch({
             type: TYPE.FETCH_USER_SUCCESS,
-            payload: user
+            payload: {
+                ...user,
+                loading: false
+            }
         })
     } catch (err) {
         dispatch({
@@ -32,7 +35,10 @@ export const fetchProfile = (user) => async dispatch => {
         console.log(profile)
         dispatch({
             type: TYPE.FETCH_PROFILE_SUCCESS,
-            payload: profile
+            payload: {
+                ...profile,
+                loading: false
+            }
         })
     } catch (err) {
         dispatch({
@@ -50,7 +56,10 @@ export const fetchFeed = (user = '') => async dispatch => {
         const feeds = await fetchFeedApi(user)
         dispatch({
             type: TYPE.FETCH_FEED_SUCCESS,
-            payload: feeds
+            payload: {
+                ...feeds,
+                loading: false
+            }
         })
     } catch(err){
         dispatch({
@@ -68,7 +77,10 @@ export const loadMoreFeed = (url) => async dispatch => {
         const feeds = await loadMoreFeedApi(url)
         dispatch({
             type: TYPE.FETCH_LOAD_MORE_FEED_SUCCESS,
-            payload: feeds
+            payload: {
+                ...feeds,
+                loading: false
+            }
         })
     } catch(err){
         dispatch({

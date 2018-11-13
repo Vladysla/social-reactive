@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Search from './searchForm/index'
 
+
 class Header extends  Component {
     constructor(){
         super()
@@ -93,10 +94,10 @@ class Header extends  Component {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/vasya-bull">
                                                     <i className="far fa-bell icon"></i>
                                                     <span className="text">Notification</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
                                                 <a href="#">

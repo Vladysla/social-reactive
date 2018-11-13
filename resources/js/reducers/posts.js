@@ -1,8 +1,9 @@
 import { FETCH_FEED_SUCCESS, FETCH_LOAD_MORE_FEED_SUCCESS } from '../actionTypes'
 
 const initialState = {
+    loading: true,
     total: null,
-    data: [],
+    data: []
 }
 
 export default (state = initialState, {type, payload}) => {

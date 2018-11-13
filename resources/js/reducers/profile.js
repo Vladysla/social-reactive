@@ -1,6 +1,8 @@
 import { FETCH_PROFILE_SUCCESS } from '../actionTypes'
 
-const initialState = {}
+const initialState = {
+    loading: true
+}
 
 export default (state = initialState, {type, payload}) => {
     switch(type){
