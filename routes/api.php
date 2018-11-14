@@ -14,3 +14,6 @@ Route::post('/createPost', 'HomeController@storePost');
 
 // Get post by username
 Route::get('/getPosts/{user?}', 'HomeController@getPosts');
+
+// Get Likes
+Route::get('/getLikes/{post}', 'HomeController@getPostLikes');

@@ -74,11 +74,18 @@ class HomeController extends Controller
     public function getPosts(User $user)
     {
         if($user->exists){
-            $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+            $posts = $user->posts()->with('user')->with('likes')->orderBy('created_at', 'desc')->paginate(10);
             return response()->json($posts);
         } else {
-            $posts = Auth::user()->posts()->with('user')->orderBy('created_at', 'desc')->paginate(3);
+            $posts = Auth::user()->posts()->with('user')->with('likes')->orderBy('created_at', 'desc')->paginate(3);
             return response()->json($posts);
         }
+    }
+
+    public function getPostLikes(Post $post)
+    {
+        return response()->json([
+            'likes' => $post->likes->count()
+        ]);
     }
 }
