@@ -22,7 +22,8 @@ export const fetchUser = () => async dispatch => {
         dispatch({
             type: TYPE.FETCH_USER_FAILURE,
             payload: err,
-            error: true
+            error: true,
+            loading: false
         })
     }
 }
@@ -44,7 +45,8 @@ export const fetchProfile = (user) => async dispatch => {
         dispatch({
             type: TYPE.FETCH_PROFILE_FAILURE,
             payload: err,
-            error: true
+            error: true,
+            loading: false
         })
     }
 }
@@ -65,13 +67,14 @@ export const fetchFeed = (user = '') => async dispatch => {
         dispatch({
             type: TYPE.FETCH_FEED_FAILURE,
             payload: err,
-            error: true
+            error: true,
+            loading: false
         })
     }
 }
 
 export const loadMoreFeed = (url) => async dispatch => {
-    dispatch({type: TYPE.FETCH_LOAD_MORE_FEED_START})
+    dispatch({type: TYPE.FETCH_LOAD_MORE_FEED_START, payload: {loading: true}})
 
     try{
         const feeds = await loadMoreFeedApi(url)
@@ -86,7 +89,8 @@ export const loadMoreFeed = (url) => async dispatch => {
         dispatch({
             type: TYPE.FETCH_LOAD_MORE_FEED_FAILURE,
             payload: err,
-            error: true
+            error: true,
+            loading: false
         })
     }
 }

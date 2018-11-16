@@ -11957,7 +11957,8 @@ var fetchUser = function fetchUser() {
                             dispatch({
                                 type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["j" /* FETCH_USER_FAILURE */],
                                 payload: _context.t0,
-                                error: true
+                                error: true,
+                                loading: false
                             });
 
                         case 11:
@@ -12008,7 +12009,8 @@ var fetchProfile = function fetchProfile(user) {
                             dispatch({
                                 type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["g" /* FETCH_PROFILE_FAILURE */],
                                 payload: _context2.t0,
-                                error: true
+                                error: true,
+                                loading: false
                             });
 
                         case 12:
@@ -12059,7 +12061,8 @@ var fetchFeed = function fetchFeed() {
                             dispatch({
                                 type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["a" /* FETCH_FEED_FAILURE */],
                                 payload: _context3.t0,
-                                error: true
+                                error: true,
+                                loading: false
                             });
 
                         case 11:
@@ -12084,7 +12087,7 @@ var loadMoreFeed = function loadMoreFeed(url) {
                 while (1) {
                     switch (_context4.prev = _context4.next) {
                         case 0:
-                            dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* FETCH_LOAD_MORE_FEED_START */] });
+                            dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* FETCH_LOAD_MORE_FEED_START */], payload: { loading: true } });
 
                             _context4.prev = 1;
                             _context4.next = 4;
@@ -12109,7 +12112,8 @@ var loadMoreFeed = function loadMoreFeed(url) {
                             dispatch({
                                 type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["d" /* FETCH_LOAD_MORE_FEED_FAILURE */],
                                 payload: _context4.t0,
-                                error: true
+                                error: true,
+                                loading: false
                             });
 
                         case 11:
@@ -100011,6 +100015,7 @@ var FeedItem = function FeedItem(props) {
     var _props$post = props.post,
         user = _props$post.user,
         body = _props$post.body,
+        likes = _props$post.likes,
         created_at = _props$post.created_at;
 
     var contentState = Object(__WEBPACK_IMPORTED_MODULE_3_draft_js_import_html__["stateFromHTML"])(body);
@@ -100108,8 +100113,8 @@ var FeedItem = function FeedItem(props) {
             { className: 'card-footer' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'a',
-                { href: '#', className: 'card-link' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-gittip' }),
+                { href: '#', className: 'card-link like-btn' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa like-icon', 'aria-hidden': 'true' }),
                 ' Like'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

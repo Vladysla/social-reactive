@@ -6,7 +6,7 @@ import {stateFromHTML} from 'draft-js-import-html';
 
 
 const FeedItem = (props) => {
-    const {user, body, created_at } = props.post
+    const {user, body, likes, created_at } = props.post
     let contentState = stateFromHTML(body);
     const editorState = EditorState.createWithContent(contentState);
     return (
@@ -44,7 +44,7 @@ const FeedItem = (props) => {
                 </div>
             </div>
             <div className="card-footer">
-                <a href="#" className="card-link"><i className="fa fa-gittip"></i> Like</a>
+                <a href="#" className="card-link like-btn"><i className="fa like-icon" aria-hidden="true"></i> Like</a>
                 <a href="#" className="card-link"><i className="fa fa-comment"></i> Comment</a>
                 <a href="#" className="card-link"><i className="fa fa-mail-forward"></i> Share</a>
             </div>

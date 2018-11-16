@@ -1526,3 +1526,20 @@ small {
 .editor :global(.public-DraftEditor-content) {
     min-height: 140px;
 }
+
+.like-icon {
+    font-size: 18px;
+    font-weight: 400;
+    color: #cb2027;
+    transition: .2s;
+}
+
+.like-icon:before {
+    content: '\f004';
+}
+
+.like-icon:hover {
+    font-weight: 900;
+    text-shadow: 0 0 4px #cb2027;
+    transform: scale(1.2);
+}

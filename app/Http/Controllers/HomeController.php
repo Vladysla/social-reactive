@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Post;
 use App\User;
 use Auth;
@@ -75,11 +76,35 @@ class HomeController extends Controller
     {
         if($user->exists){
             $posts = $user->posts()->with('user')->with('likes')->orderBy('created_at', 'desc')->paginate(10);
+
             return response()->json($posts);
         } else {
             $posts = Auth::user()->posts()->with('user')->with('likes')->orderBy('created_at', 'desc')->paginate(3);
             return response()->json($posts);
         }
+    }
+
+    public function likePost($post_id)
+    {
+        $like = new Like();
+        $result = $like->like([
+            'post_id' => $post_id,
+            'user_id' => Auth::id()
+        ]);
+
+        return response()->json([
+            'result' => $result
+        ]);
+    }
+
+    public function unlikePost($post_id)
+    {
+        $like = new Like();
+        $result = $like->unlike($post_id);
+
+        return response()->json([
+            'result' => $result
+        ]);
     }
 
     public function getPostLikes(Post $post)
