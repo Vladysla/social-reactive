@@ -14,11 +14,14 @@ class Like extends Model
         'user_id'
     ];
 
+    public static function checkLike($post_id)
+    {
+        $like = Auth::user()->likes()->where('post_id', $post_id)->first();
+        return $like ? true : false;
+    }
+
     public function like($fields)
     {
-        $findLike = Auth::user()->likes()->where('post_id', $fields['post_id'])->first();
-        if($findLike)
-            return false;
 
         $like = new static;
         $like->fill($fields);

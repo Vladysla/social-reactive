@@ -93,8 +93,17 @@ class HomeController extends Controller
         ]);
 
         return response()->json([
-            'result' => $result
+            'result' => '+'
         ]);
+    }
+
+    public function toggleLike(Request $request)
+    {
+        if (!Like::checkLike($request->post_id)){
+            return $this->likePost($request->post_id);
+        } else {
+            return $this->unlikePost($request->post_id);
+        }
     }
 
     public function unlikePost($post_id)
@@ -103,7 +112,7 @@ class HomeController extends Controller
         $result = $like->unlike($post_id);
 
         return response()->json([
-            'result' => $result
+            'result' => '-'
         ]);
     }
 

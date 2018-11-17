@@ -12087,7 +12087,7 @@ var loadMoreFeed = function loadMoreFeed(url) {
                 while (1) {
                     switch (_context4.prev = _context4.next) {
                         case 0:
-                            dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* FETCH_LOAD_MORE_FEED_START */], payload: { loading: true } });
+                            dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* FETCH_LOAD_MORE_FEED_START */] });
 
                             _context4.prev = 1;
                             _context4.next = 4;
@@ -100005,133 +100005,199 @@ var mapStateToProps = function mapStateToProps(store) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_draft_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_draft_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_draft_js_import_html__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_draft_js_import_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_draft_js_import_html__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
 
 
-var FeedItem = function FeedItem(props) {
-    var _props$post = props.post,
-        user = _props$post.user,
-        body = _props$post.body,
-        likes = _props$post.likes,
-        created_at = _props$post.created_at;
 
-    var contentState = Object(__WEBPACK_IMPORTED_MODULE_3_draft_js_import_html__["stateFromHTML"])(body);
-    var editorState = __WEBPACK_IMPORTED_MODULE_2_draft_js__["EditorState"].createWithContent(contentState);
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'card gedf-card align-self-center col-11' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'card-header' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+var FeedItem = function (_Component) {
+    _inherits(FeedItem, _Component);
+
+    function FeedItem(props) {
+        _classCallCheck(this, FeedItem);
+
+        var _this = _possibleConstructorReturn(this, (FeedItem.__proto__ || Object.getPrototypeOf(FeedItem)).call(this, props));
+
+        _this.state = {
+            likes: props.post.likes.length,
+            userLikes: props.post.liked_by_user
+        };
+        return _this;
+    }
+
+    _createClass(FeedItem, [{
+        key: 'toggleLike',
+        value: function toggleLike(id) {
+            var _this2 = this;
+
+            axios.post('/api/toggleLikePost', {
+                post_id: id
+            }).then(function (response) {
+                if (response.data.result === '+') {
+                    _this2.setState(function (prevState) {
+                        return {
+                            likes: prevState.likes + 1,
+                            userLikes: !prevState.userLikes
+                        };
+                    });
+                } else {
+                    _this2.setState(function (prevState) {
+                        return {
+                            likes: prevState.likes - 1,
+                            userLikes: !prevState.userLikes
+                        };
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var _props$post = this.props.post,
+                id = _props$post.id,
+                user = _props$post.user,
+                body = _props$post.body,
+                created_at = _props$post.created_at;
+
+            var totalLikes = this.state.likes;
+            var userLiked = this.state.userLikes ? 'actived' : '';
+            var contentState = Object(__WEBPACK_IMPORTED_MODULE_3_draft_js_import_html__["stateFromHTML"])(body);
+            var editorState = __WEBPACK_IMPORTED_MODULE_2_draft_js__["EditorState"].createWithContent(contentState);
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'd-flex justify-content-between align-items-center' },
+                { className: 'card gedf-card align-self-center col-11' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'd-flex justify-content-between align-items-center' },
+                    { className: 'card-header' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'mr-2' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'rounded-circle', width: '45', src: 'https://picsum.photos/50/50', alt: '' })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'ml-2' },
+                        { className: 'd-flex justify-content-between align-items-center' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'h5 m-0' },
-                            '@',
-                            user.slug
+                            { className: 'd-flex justify-content-between align-items-center' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'mr-2' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'rounded-circle', width: '45', src: 'https://picsum.photos/50/50', alt: '' })
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'ml-2' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'h5 m-0' },
+                                    '@',
+                                    user.slug
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'h7 text-muted' },
+                                    user.username
+                                )
+                            )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'h7 text-muted' },
-                            user.username
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'dropdown' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'button',
+                                    { className: 'btn btn-link dropdown-toggle', type: 'button', id: 'gedf-drop1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-ellipsis-h' })
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'dropdown-menu dropdown-menu-right', 'aria-labelledby': 'gedf-drop1' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'h6 dropdown-header' },
+                                        'Configuration'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'a',
+                                        { className: 'dropdown-item', href: '#' },
+                                        'Save'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'a',
+                                        { className: 'dropdown-item', href: '#' },
+                                        'Hide'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'a',
+                                        { className: 'dropdown-item', href: '#' },
+                                        'Report'
+                                    )
+                                )
+                            )
                         )
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
+                    { className: 'card-body' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'dropdown' },
+                        { className: 'text-muted h7 mb-2' },
+                        ' ',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-clock-o' }),
+                        created_at
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-content' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_draft_js_plugins_editor___default.a, { editorState: editorState, onChange: this.props.change, readOnly: true })
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card-footer' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: function onClick(e) {
+                                return _this3.toggleLike(id, e);
+                            }, className: 'card-link like-btn' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa like-icon ' + userLiked, 'aria-hidden': 'true' }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { className: 'btn btn-link dropdown-toggle', type: 'button', id: 'gedf-drop1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-ellipsis-h' })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'dropdown-menu dropdown-menu-right', 'aria-labelledby': 'gedf-drop1' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'h6 dropdown-header' },
-                                'Configuration'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'a',
-                                { className: 'dropdown-item', href: '#' },
-                                'Save'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'a',
-                                { className: 'dropdown-item', href: '#' },
-                                'Hide'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'a',
-                                { className: 'dropdown-item', href: '#' },
-                                'Report'
-                            )
+                            'span',
+                            null,
+                            '  ',
+                            totalLikes
                         )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', className: 'card-link' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-comment' }),
+                        ' Comment'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#', className: 'card-link' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-mail-forward' }),
+                        ' Share'
                     )
                 )
-            )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'card-body' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'text-muted h7 mb-2' },
-                ' ',
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-clock-o' }),
-                created_at
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'card-content' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_draft_js_plugins_editor___default.a, { editorState: editorState, onChange: props.change, readOnly: true })
-            )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'card-footer' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#', className: 'card-link like-btn' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa like-icon', 'aria-hidden': 'true' }),
-                ' Like'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#', className: 'card-link' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-comment' }),
-                ' Comment'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#', className: 'card-link' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-mail-forward' }),
-                ' Share'
-            )
-        )
-    );
-};
+            );
+        }
+    }]);
+
+    return FeedItem;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (FeedItem);
 

@@ -74,7 +74,7 @@ export const fetchFeed = (user = '') => async dispatch => {
 }
 
 export const loadMoreFeed = (url) => async dispatch => {
-    dispatch({type: TYPE.FETCH_LOAD_MORE_FEED_START, payload: {loading: true}})
+    dispatch({type: TYPE.FETCH_LOAD_MORE_FEED_START})
 
     try{
         const feeds = await loadMoreFeedApi(url)

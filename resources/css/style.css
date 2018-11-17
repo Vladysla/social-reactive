@@ -1527,6 +1527,14 @@ small {
     min-height: 140px;
 }
 
+.like-btn {
+    cursor: pointer;
+}
+
+.like-btn:focus {
+    outline: none;
+}
+
 .like-icon {
     font-size: 18px;
     font-weight: 400;
@@ -1539,6 +1547,12 @@ small {
 }
 
 .like-icon:hover {
+    font-weight: 900;
+    text-shadow: 0 0 4px #cb2027;
+    transform: scale(1.2);
+}
+
+.actived {
     font-weight: 900;
     text-shadow: 0 0 4px #cb2027;
     transform: scale(1.2);

@@ -19,5 +19,4 @@ Route::get('/getPosts/{user?}', 'HomeController@getPosts');
 Route::get('/getLikes/{post}', 'HomeController@getPostLikes');
 
 // Attach or detach like to post
-Route::get('/likePost/{post_id}', 'HomeController@likePost');
-Route::get('/unlikePost/{post_id}', 'HomeController@unlikePost');
+Route::post('/toggleLikePost', 'HomeController@toggleLike');
